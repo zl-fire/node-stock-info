@@ -1,3 +1,5 @@
+//=========爬取沪深京所有的个股===========
+
 var Crawler = require("crawler");
 let { JsonDB, Config } = require('node-json-db')
 var c = new Crawler({

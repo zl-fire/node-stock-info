@@ -1,3 +1,5 @@
+ // ========== 开始创建所有个股信息的excel表格 ============
+
 const ExcelMod = require("zl-excel")
 let { info } = require("./data/info.json")
 
