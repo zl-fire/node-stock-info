@@ -1,7 +1,7 @@
 // 计算预热板块（不包含涨停）
 //解析板块各种前十，然后求交集
 
-async function getPreHot_noZT(blockData) {
+async function getPreHot_noZT() {
     // 获取原始的板块数据
     let getBlockInfo = require("../../base/getBlockInfo");
     let { blockTot, diff } = await getBlockInfo();
@@ -42,18 +42,21 @@ async function getPreHot_noZT(blockData) {
         ) preJjArr.push(ele);
     })
 
-    // 后面把异动板块前5，做补集并入
+    // 后面把异动板块(涨跌幅_降序_含有未涨停)前5，做补集并入
+    preJjArr.unshift(...zdf10.slice(0, 5));
+    preJjArr = [...new Set(preJjArr)]; //去重
+    preJjArr=preJjArr.map(ele=>ele.slice(0,4));//截取板块名的前4个字
 
-    console.table([
-        ["涨跌幅_降序:",...zdf10.slice(0, 10)],
-        ["下跌率_升序:",...xdl10.slice(0, 10)],
-        ["资金流入_降序:",...lrzj10.slice(0, 10)]
-    ])
-    console.log("预热板块_不含涨停", preJjArr)
-
-
-
+    // 构建返回结果
+    let allRes = [
+        ["涨跌幅_降序:", ...zdf10.slice(0, 10)],
+        ["下跌率_升序:", ...xdl10.slice(0, 10)],
+        ["资金流入_降序:", ...lrzj10.slice(0, 10)]
+    ]
+    return {
+        allRes, preJjArr
+    }
 }
 
 module.exports = getPreHot_noZT
-getPreHot_noZT()
+// getPreHot_noZT()
