@@ -39,28 +39,26 @@
 
     // 解析板块数据，得到热门板块
     let resolverBlockData = require("./service/resolverBlockData");
-    // let { blockResolve, hotBlock, includePreHotBLOCK } = await resolverBlockData(blockArr);
     let { blockResolve, hotBlock } = await resolverBlockData(blockArr);
-    console.log("\n\n【前十板块分析_需含涨停】:");
-    console.table(blockResolve)
-
-    // 热门板块
-    console.log("\n\n【热门板块】:", hotBlock.slice(1));
-
-    // // 预热板块（含涨停)
-    // let preHot = includePreHotBLOCK.slice(1).filter(ele => !hotBlock.includes(ele));
-    // console.log("\n【预热板块_含涨停】:", preHot);
 
     // 预热板块（不含涨停)
     let getPreHot_noZT = require("./service/getPreHot_noZT");
     let { allRes, preJjArr } = await getPreHot_noZT();
-    let blockNameArr = blockArr.map(ele => ele.blockName);// 得到涨停的所有板块名
-    let noReapetBlockName = preJjArr.filter(ele => !blockNameArr.includes(ele));
-    console.log("\n【预热板块】:", noReapetBlockName);
+
+
+    console.log("\n\n【前十板块分析_需含涨停】:");
+    console.table(blockResolve)
 
     console.log("\n【前十板块分析_不管是否涨停】:");
     console.table(allRes);
 
+    // 热门板块
+    console.log("\n\n【热门板块】:", hotBlock.slice(1));
+
+
+    let blockNameArr = blockArr.map(ele => ele.blockName);// 得到涨停的所有板块名
+    let noReapetBlockName = preJjArr.filter(ele => !blockNameArr.includes(ele));
+    console.log("\n【预热板块】:", noReapetBlockName);
 
     // 计算推荐龙头股 和 一进二打板股
     let resolveLtgDbg = require("./service/resolveLtgDbg");
@@ -70,17 +68,17 @@
     console.log("\n\n【操作建议】")
 
     console.log("\n  1. 关注热门板块龙头股如下，操作方式为:放入龙头股分组，第二天竞价完成后，如果高开(涨幅大于+5%)直接委托买入.其他:8.5%时打板买入\n");
-    tjLTG=tjLTG.filter(ele=>blockNameCodeArr[ele]?true:false);
+    tjLTG = tjLTG.filter(ele => blockNameCodeArr[ele] ? true : false);
     tjLTG.forEach((ele, i) => {
-        let orderNum = (i + 1) < 10 ? "0" + (i + 1)  : i + 1; //得到序号
-        console.log("\t", "["+orderNum+"]", blockNameCodeArr[ele], ele)
+        let orderNum = (i + 1) < 10 ? "0" + (i + 1) : i + 1; //得到序号
+        console.log("\t", "[" + orderNum + "]", blockNameCodeArr[ele], ele)
     })
 
 
     console.log("\n  2. 关注打板票如下，操作方式为:放入热门板块打板分组,第二天竞价开盘后，8.5%时打板买入(这些打板票包含:热门板块的一板，预热板块的一板或非一板）:\n");
     daBan.forEach((ele, i) => {
         let orderNum = (i + 1) < 10 ? "0" + (i + 1) : i + 1; //得到序号
-        console.log("\t", "["+orderNum+"]", blockNameCodeArr[ele], ele)
+        console.log("\t", "[" + orderNum + "]", blockNameCodeArr[ele], ele)
     })
     console.log("\n");
 }())

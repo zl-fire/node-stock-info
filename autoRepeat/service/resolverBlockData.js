@@ -25,12 +25,23 @@ async function resolverBlockData(blockData) {
     })
     let zjlr10 = cloneData3.map((ele) => ele.blockName);
 
-    // 计算4种排序的交集
+    // // 计算4种排序的交集
+    // let jjArr = [];
+    // ztc10.slice(0, 10).forEach(ele => {
+    //     if (
+    //         xdl10.slice(0, 10).includes(ele)
+    //         &&
+    //         zdf10.slice(0, 10).includes(ele)
+    //         &&
+    //         zjlr10.slice(0, 10).includes(ele)
+
+    //     ) jjArr.push(ele);
+    // })
+
+    // 计算3种排序的交集
     let jjArr = [];
-    ztc10.slice(0, 10).forEach(ele => {
+    xdl10.slice(0, 10).forEach(ele => {
         if (
-            xdl10.slice(0, 10).includes(ele)
-            &&
             zdf10.slice(0, 10).includes(ele)
             &&
             zjlr10.slice(0, 10).includes(ele)
@@ -38,23 +49,12 @@ async function resolverBlockData(blockData) {
         ) jjArr.push(ele);
     })
 
-    // // 计算出今天包含热度上升趋势，但是涨停股较少的的板块
-    // let jjArr2 = [];
-    // xdl10.slice(0, 10).forEach(ele => {
-    //     if (
-    //         zdf10.slice(0, 10).includes(ele)
-    //         &&
-    //         zjlr10.slice(0, 10).includes(ele)
-
-    //     ) jjArr2.push(ele);
-    // })
-
     return {
         blockResolve: [
             // ["涨停池降序：", ...ztc10.slice(0, 10)],
-            ["涨跌幅降序：", ...zdf10.slice(0, 10)],
-            ["下跌率升序：", ...xdl10.slice(0, 10)],
-            ["资金流降序：", ...zjlr10.slice(0, 10)],
+            ["涨跌幅_降序：", ...zdf10.slice(0, 10)],
+            ["下跌率_升序：", ...xdl10.slice(0, 10)],
+            ["资金流入_降序：", ...zjlr10.slice(0, 10)],
 
         ],
         hotBlock: ["可能的热门板块：", ...jjArr], //排列交集
