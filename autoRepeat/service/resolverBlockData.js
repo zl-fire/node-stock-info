@@ -51,9 +51,9 @@ async function resolverBlockData(blockData) {
 
     return {
         blockResolve: [
-            ["涨停池降序：", ...ztc10.slice(0, 10)],
-            ["下跌率升序：", ...xdl10.slice(0, 10)],
+            // ["涨停池降序：", ...ztc10.slice(0, 10)],
             ["涨跌幅降序：", ...zdf10.slice(0, 10)],
+            ["下跌率升序：", ...xdl10.slice(0, 10)],
             ["资金流降序：", ...zjlr10.slice(0, 10)],
 
         ],
