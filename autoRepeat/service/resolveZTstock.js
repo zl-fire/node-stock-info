@@ -12,13 +12,19 @@ async function resolveZTstock(ztData){
      *      最大涨连板数,
      *      所有涨停股的连板数显示，
      *      共有哪些涨停股
+     * 
+     *      涨跌幅,领涨股,跌率，下跌比
+     * 
      *     },
      *    ”板块名2“:{
      *      板块名2,
      *      涨停股数量，
      *      最大涨连板数,
      *      所有涨停股的连板数显示，
-     *      共有哪些涨停股
+     *      共有哪些涨停股,
+     * 
+     *      涨跌幅,领涨股,跌率,下跌比
+     * 
      *     }
      *  }
      * }
@@ -46,6 +52,25 @@ async function resolveZTstock(ztData){
         }
     });
 
+    // 计算板块涨跌幅和板块下跌比例，最后单独打印前20的涨幅板块
+    let getBlockInfo=require("../../base/getBlockInfo");
+    let { blockTot, diff }= await getBlockInfo();
+    // f14:板块名，f3: 板块涨跌幅，f104: 板块上涨家数， f105:下跌家数 ，f128:领涨股
+    diff.forEach(ele=>{
+        if(ele.f14=="互联网服务") ele.f14="互联网服";
+        if(ele.f14=="光学光电子") ele.f14="光学光电";
+        if(ele.f14=="汽车零部件") ele.f14="汽车零部";
+        if(ele.f14=="房地产服务") ele.f14="房地产服";
+        if(ele.f14=="房地产开发") ele.f14="房地产开";
+        
+        if(allObj[ele.f14]){
+            allObj[ele.f14].zdf=ele.f3;//涨跌幅
+            allObj[ele.f14].lzg=ele.f128;//领涨股
+            allObj[ele.f14].xdl=(ele.f105/(ele.f104+ele.f105)*100).toFixed(2)+"%";//下跌率
+            allObj[ele.f14].xdb=`${ele.f105}/${ele.f105+ele.f104}`;//下跌比
+        }
+    })
+
     // 计算最大连板数，连板数集合，排序
     let blockArr = Object.values(allObj);
     blockArr.forEach(ele => {
@@ -65,8 +90,10 @@ async function resolveZTstock(ztData){
 
     // 按涨停股数量排序，如果一致就按照最大连板数排序
     blockArr.sort(function (a, b) {
-        if (b.ztNum != a.ztNum) return b.ztNum - a.ztNum
-        else return b.maxLBN - a.maxLBN
+        if (b.ztNum != a.ztNum) return b.ztNum - a.ztNum //涨停股数量排序
+        if (b.ztNum == a.ztNum) return  b.maxLBN - a.maxLBN //最大连板数排序
+        if (b.ztNum == a.ztNum && b.maxLBN == a.maxLBN) return  b.xdl.slice(0,-1) - a.xdl.slice(0,-1) //下跌率排序
+        if (b.ztNum == a.ztNum && b.maxLBN == a.maxLBN && b.xdl == a.xdl  ) return  b.zdf - a.zdf //涨跌幅排序
     })
 
     return {

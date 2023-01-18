@@ -1,4 +1,5 @@
 //=========得到涨停股池===========
+// 如果需要知道具体参数含义，可在此页面上去一一对照：http://quote.eastmoney.com/ztb/detail#type=ztgc
 
 const fetch = require('node-fetch');
 
