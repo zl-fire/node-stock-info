@@ -33,7 +33,7 @@
     // 解析板块数据，预测热门板块
     let resolverBlockData = require("./service/resolverBlockData");
     let { blockResolve, hotBlock, includePreHotBLOCK } = await resolverBlockData(blockArr);
-    console.log("\n\n【板块状态分析]:");
+    console.log("\n\n【含涨停板块分析]:");
     console.table(blockResolve)
 
     // 热门板块预测
