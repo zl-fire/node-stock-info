@@ -25,14 +25,19 @@
     })
 
     // 控制台显示表格
-    console.log("\n=============", new Date().toLocaleString(), "共有涨停股数量为:", tot, "。板块分析如下====================\n")
+    console.log("\n=============", new Date().toLocaleString(),"=============")
+    console.log("\n【涨停股池分析】共有涨停股数量为:", tot,"分布如下")
     console.table(newArr)
 
     // 解析板块数据，预测热门板块
     let resolverBlockData = require("./service/resolverBlockData");
     let blockResolveRes = await resolverBlockData(blockArr);
-    console.log("\n\n==============", "从各个维度分析板块信息并预测热门板块", "===================\n")
-    console.table(blockResolveRes)
+    console.log("\n\n【板块状态分析]:");
+    console.table([blockResolveRes[0],blockResolveRes[1],blockResolveRes[2]])
+
+    // 预测热门板块
+    console.log("\n\n【热门板块预测]:",blockResolveRes[3].slice(1));
+
 
     // 计算推荐龙头股 和 一进二打板股
     let resolveLtgDbg = require("./service/resolveLtgDbg");
