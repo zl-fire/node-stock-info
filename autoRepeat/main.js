@@ -9,6 +9,11 @@
     let resolveZTstock = require("./service/resolveZTstock");
     let { tot, blockArr, date } = await resolveZTstock(ztData);
 
+    // 得到涨停的所有板块名
+    let blockNameCodeArr = ztData.poll.reduce((blockNameCodeArr, ele) => {
+        blockNameCodeArr[ele.n] = ele.c;
+        return blockNameCodeArr
+    }, {});
 
     let newArr = [];
     blockArr.forEach(ele => {
@@ -45,7 +50,7 @@
     // // 预热板块（含涨停)
     // let preHot = includePreHotBLOCK.slice(1).filter(ele => !hotBlock.includes(ele));
     // console.log("\n【预热板块_含涨停】:", preHot);
-    
+
     // 预热板块（不含涨停)
     let getPreHot_noZT = require("./service/getPreHot_noZT");
     let { allRes, preJjArr } = await getPreHot_noZT();
@@ -63,17 +68,19 @@
     let { tjLTG, daBan } = await resolveLtgDbg(blockArr, hotBlock);
 
     console.log("\n\n【操作建议】")
-    console.log(
-        "\n  1. 关注热门板块龙头股:", tjLTG,
-        "操作方式为:放入龙头股分组，第二天竞价完成后，如果高开(涨幅大于+5%)直接委托买入.其他:8.5%时打板买入",
-    );
+
+    console.log("\n  1. 关注热门板块龙头股如下，操作方式为:放入龙头股分组，第二天竞价完成后，如果高开(涨幅大于+5%)直接委托买入.其他:8.5%时打板买入\n");
+    tjLTG=tjLTG.filter(ele=>blockNameCodeArr[ele]?true:false);
+    tjLTG.forEach((ele, i) => {
+        let orderNum = (i + 1) < 10 ? "0" + (i + 1)  : i + 1; //得到序号
+        console.log("\t", "["+orderNum+"]", blockNameCodeArr[ele], ele)
+    })
+
 
     console.log("\n  2. 关注打板票如下，操作方式为:放入热门板块打板分组,第二天竞价开盘后，8.5%时打板买入(这些打板票包含:热门板块的一板，预热板块的一板或非一板）:\n");
-    let blockNameCodeArr = ztData.poll.reduce((blockNameCodeArr, ele) => {
-        blockNameCodeArr[ele.n] = ele.c;
-        return blockNameCodeArr
-    }, {});// 得到涨停的所有板块名
-    // console.log("blockNameCodeArr", blockNameCodeArr)
-    daBan.forEach((ele, i) => console.log("\t", (i + 1) < 10 ? "0" + (i + 1)+"." : i + 1 + ".",  blockNameCodeArr[ele], ele))
+    daBan.forEach((ele, i) => {
+        let orderNum = (i + 1) < 10 ? "0" + (i + 1) : i + 1; //得到序号
+        console.log("\t", "["+orderNum+"]", blockNameCodeArr[ele], ele)
+    })
     console.log("\n");
 }())
