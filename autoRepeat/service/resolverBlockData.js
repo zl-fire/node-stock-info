@@ -38,27 +38,27 @@ async function resolverBlockData(blockData) {
         ) jjArr.push(ele);
     })
 
-    // 计算出今天包含热度上升趋势，但是涨停股较少的的板块
-    let jjArr2 = [];
-    xdl10.slice(0, 10).forEach(ele => {
-        if (
-            zdf10.slice(0, 10).includes(ele)
-            &&
-            zjlr10.slice(0, 10).includes(ele)
+    // // 计算出今天包含热度上升趋势，但是涨停股较少的的板块
+    // let jjArr2 = [];
+    // xdl10.slice(0, 10).forEach(ele => {
+    //     if (
+    //         zdf10.slice(0, 10).includes(ele)
+    //         &&
+    //         zjlr10.slice(0, 10).includes(ele)
 
-        ) jjArr2.push(ele);
-    })
+    //     ) jjArr2.push(ele);
+    // })
 
     return {
         blockResolve: [
             ["涨停池降序：", ...ztc10.slice(0, 10)],
             ["下跌率升序：", ...xdl10.slice(0, 10)],
             ["涨跌幅降序：", ...zdf10.slice(0, 10)],
-            ["资金流入降序：", ...zjlr10.slice(0, 10)],
+            ["资金流降序：", ...zjlr10.slice(0, 10)],
 
         ],
         hotBlock: ["可能的热门板块：", ...jjArr], //排列交集
-        includePreHotBLOCK: ["包含预热的板块：", ...jjArr2]
+        // includePreHotBLOCK: ["包含预热的板块：", ...jjArr2]
     }
 }
 

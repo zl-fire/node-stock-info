@@ -2,7 +2,8 @@
 (async function () {
     //获取涨停数据
     let getTopicZTPool = require("../base/getTopicZTPool");
-    let ztData = await getTopicZTPool();
+    let ztData = await getTopicZTPool();//"20230117"
+
 
     //解析涨停数据
     let resolveZTstock = require("./service/resolveZTstock");
@@ -13,14 +14,14 @@
     blockArr.forEach(ele => {
         newArr.push({
             板块名: ele.blockName,
-            涨停股数量: ele.ztNum,
-            最大连板数: ele.maxLBN,
-            连板数集合: ele.lbnArr.toString(),
-            涨停股集合: ele.stockArr.toString(),
             板块涨幅: ele.zdf,
             资金流入: ele.zjlr + "亿",
             板块下跌率: ele.xdl,
             板块下跌比: ele.xdb,
+            涨停股数量: ele.ztNum,
+            最大连板数: ele.maxLBN,
+            连板数集合: ele.lbnArr.toString(),
+            涨停股集合: ele.stockArr.toString(),
             板块领涨股: ele.lzg,
 
         })
@@ -33,21 +34,24 @@
 
     // 解析板块数据，得到热门板块
     let resolverBlockData = require("./service/resolverBlockData");
-    let { blockResolve, hotBlock, includePreHotBLOCK } = await resolverBlockData(blockArr);
-    console.log("\n\n【含涨停板块分析]:");
+    // let { blockResolve, hotBlock, includePreHotBLOCK } = await resolverBlockData(blockArr);
+    let { blockResolve, hotBlock } = await resolverBlockData(blockArr);
+    console.log("\n\n【前十板块分析_需含涨停】:");
     console.table(blockResolve)
 
     // 热门板块
-    console.log("\n\n【热门板块]:", hotBlock.slice(1));
-    // 预热板块（含涨停)
-    let preHot = includePreHotBLOCK.slice(1).filter(ele => !hotBlock.includes(ele));
-    console.log("\n【预热板块_含涨停】:", preHot);
+    console.log("\n\n【热门板块】:", hotBlock.slice(1));
+
+    // // 预热板块（含涨停)
+    // let preHot = includePreHotBLOCK.slice(1).filter(ele => !hotBlock.includes(ele));
+    // console.log("\n【预热板块_含涨停】:", preHot);
+    
     // 预热板块（不含涨停)
     let getPreHot_noZT = require("./service/getPreHot_noZT");
     let { allRes, preJjArr } = await getPreHot_noZT();
     let blockNameArr = blockArr.map(ele => ele.blockName);// 得到涨停的所有板块名
     let noReapetBlockName = preJjArr.filter(ele => !blockNameArr.includes(ele));
-    console.log("\n【预热板块_不含涨停】:", noReapetBlockName);
+    console.log("\n【预热板块】:", noReapetBlockName);
 
     console.log("\n【前十板块分析_不管是否涨停】:");
     console.table(allRes);
@@ -55,7 +59,8 @@
 
     // 计算推荐龙头股 和 一进二打板股
     let resolveLtgDbg = require("./service/resolveLtgDbg");
-    let { tjLTG, daBan } = await resolveLtgDbg(blockArr, hotBlock, preHot);
+    // let { tjLTG, daBan } = await resolveLtgDbg(blockArr, hotBlock, preHot);
+    let { tjLTG, daBan } = await resolveLtgDbg(blockArr, hotBlock);
 
     console.log("\n\n【操作建议】")
     console.log(
@@ -64,6 +69,11 @@
     );
 
     console.log("\n  2. 关注打板票如下，操作方式为:放入热门板块打板分组,第二天竞价开盘后，8.5%时打板买入(这些打板票包含:热门板块的一板，预热板块的一板或非一板）:\n");
-    daBan.forEach(ele => console.log("\t", ele))
+    let blockNameCodeArr = ztData.poll.reduce((blockNameCodeArr, ele) => {
+        blockNameCodeArr[ele.n] = ele.c;
+        return blockNameCodeArr
+    }, {});// 得到涨停的所有板块名
+    // console.log("blockNameCodeArr", blockNameCodeArr)
+    daBan.forEach((ele, i) => console.log("\t", (i + 1) < 10 ? "0" + (i + 1)+"." : i + 1 + ".",  blockNameCodeArr[ele], ele))
     console.log("\n");
 }())
