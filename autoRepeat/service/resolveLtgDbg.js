@@ -33,7 +33,9 @@ async function resolveLtgDbg(blockArr, hotBlock) {
     // })
 
     // 计算出所有需要一进二打板的股票
-    daBan = Object.keys(allStocks).filter(ele => !tjLTG.includes(ele));
+    daBan = Object.keys(allStocks).filter(ele => {
+        return !tjLTG.includes(ele) && allStocks[ele] == 1;
+    });
 
     return { tjLTG, daBan }
 }
