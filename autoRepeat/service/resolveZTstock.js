@@ -92,7 +92,7 @@ async function resolveZTstock(ztData){
     blockArr.sort(function (a, b) {
         if (b.ztNum != a.ztNum) return b.ztNum - a.ztNum //涨停股数量排序
         if (b.ztNum == a.ztNum) return  b.maxLBN - a.maxLBN //最大连板数排序
-        if (b.ztNum == a.ztNum && b.maxLBN == a.maxLBN) return  b.xdl.slice(0,-1) - a.xdl.slice(0,-1) //下跌率排序
+        if (b.ztNum == a.ztNum && b.maxLBN == a.maxLBN) return  a.xdl.slice(0,-1) - b.xdl.slice(0,-1) //下跌率排序
         if (b.ztNum == a.ztNum && b.maxLBN == a.maxLBN && b.xdl == a.xdl  ) return  b.zdf - a.zdf //涨跌幅排序
     })
 
