@@ -7,12 +7,13 @@ function renderData(date, element) {
             else {
                 // 开始渲染页面
                 let htmlStr = ``;
-                // 渲染数据为table（目前数组最多为二维即可）
-                let table = `<table  border="1" cellpadding="10" cellspacing="0"><tbody>`;
                 for (let key in d) {
+                    if(key=="股票与代码映射关系") continue;
                     let h = `<h1>【${key}】</h1>`;
                     htmlStr += h;
                     let value = d[key];
+                    // 渲染数据为table（目前数组最多为二维即可）
+                    let table = `<table  border="1" cellpadding="10" cellspacing="0"><tbody>`;
                     // 表示是对象数组
                     if (Object.prototype.toString.call(value[0]) === '[object Object]') {
                         let endArr = [];
@@ -26,7 +27,7 @@ function renderData(date, element) {
                         // 渲染
                         table += diguiRenderArr(endArr);
                     }
-                    // 表示不是对象数组
+                    // 表示非对象数组
                     else {
                         table += diguiRenderArr(value);
                     }
