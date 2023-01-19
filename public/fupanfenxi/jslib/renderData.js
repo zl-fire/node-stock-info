@@ -6,7 +6,7 @@ function renderData(date, element) {
             if (d.info) alert(d.info);
             else {
                 // 开始渲染页面
-                let htmlStr = ``;
+                let htmlStr = `<div>${date}-股市分析</div>`;
                 for (let key in d) {
                     if(key=="股票与代码映射关系") continue;
                     let h = `<h1>【${key}】</h1>`;

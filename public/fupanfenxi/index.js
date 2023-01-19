@@ -10,11 +10,10 @@ function create(date) {
     `);
   // 添加体
   $(".main").append(`
-    <section>
-      内容${date}
-    </section>
+    <section></section>
     `);
 }
+
 create(buildDate());
 // 显示第一个标题和内容
 $(".head section").eq(0).addClass("active-head");
