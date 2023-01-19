@@ -28,4 +28,21 @@
 ### 3.6 【预热板块】
     使用【【所有板块_前10分析】中的几类前10板块做交集得到的一个集合，然后在往集合中注入了按照涨幅排名后的前10数据，最后在删除集合中含有涨停的所有的板块，并去重得到的最终板块集合数据
 
+    预热板块下的表格，是通过【板块行情】接口 和 板块资金流入】接口，构建了一个所有板块的指标信息(涨跌幅，下跌率，资金流入)映射对象，然后从这个对象里面找出来的
+
 ## 4. 接口地址和页面地址
+```js
+// 获取板块信息
+// 网页：http://quote.eastmoney.com/center/boardlist.html#industry_board （可对比参数含义）
+// 接口：http://64.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112405982495475506511_1674011942557&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=|0|0|0|web&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1674011942572
+
+
+// 获取板块资金流入问题信息
+// 网页：https://data.eastmoney.com/bkzj/hy.html （可对比参数含义）
+// 接口：https://push2.eastmoney.com/api/qt/clist/get?cb=jQuery11230042368503993895246_1674038459890&fid=f62&po=1&pz=50&pn=1&np=1&fltt=2&invt=2&ut=b2884a393a59ad64002292a3e90d46a5&fs=m%3A90+t%3A2&fields=f12%2Cf14%2Cf2%2Cf3%2Cf62%2Cf184%2Cf66%2Cf69%2Cf72%2Cf75%2Cf78%2Cf81%2Cf84%2Cf87%2Cf204%2Cf205%2Cf124%2Cf1%2Cf13
+
+//得到涨停股池
+// 网页：http://quote.eastmoney.com/ztb/detail#type=ztgc 如果需要知道具体参数含义，可在此页面上去一一对照：
+// 接口 http://push2ex.eastmoney.com/getTopicZTPool?cb=callbackdata1783941&ut=7eea3edcaed734bea9cbfc24409ed989&dpt=wz.ztzt&Pageindex=0&pagesize=170&sort=fbt%3Aasc&date=' + date + '&_=1673969152674
+
+```

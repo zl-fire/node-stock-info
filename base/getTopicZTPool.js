@@ -1,5 +1,6 @@
-//=========得到涨停股池===========
-// 如果需要知道具体参数含义，可在此页面上去一一对照：http://quote.eastmoney.com/ztb/detail#type=ztgc
+//得到涨停股池
+// 网页：http://quote.eastmoney.com/ztb/detail#type=ztgc 如果需要知道具体参数含义，可在此页面上去一一对照：
+// 接口 http://push2ex.eastmoney.com/getTopicZTPool?cb=callbackdata1783941&ut=7eea3edcaed734bea9cbfc24409ed989&dpt=wz.ztzt&Pageindex=0&pagesize=170&sort=fbt%3Aasc&date=' + date + '&_=1673969152674
 
 const fetch = require('node-fetch');
 
