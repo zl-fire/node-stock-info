@@ -8,14 +8,15 @@
     <title>Document</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="./index.css">
+    <script src="./jslib/showAndHide.js"></script>
+    <script src="./jslib/renderData.js"></script>
+    <script src="./jslib/diguiRenderArr.js"></script>
+    <script src="./jslib/buildDate.js"></script>
 </head>
 
 <body>
     <div class="head"><span class="add">+</span></div>
     <main class="main"></main>
-    <script>
-        fetch("/getData?date=20230119").then(d => d.text()).then(d => console.log(d))
-    </script>
     <script src="./index.js"></script>
 </body>
 

@@ -17,7 +17,7 @@ app.get("/getData", async function (req, res) {
     await autoRepeat(false);//执行函数生成分析结果，会自动写入文件,false表示不显示日志
     // 从文件中读取
     let allRes = require("./autoRepeat/data/historicalAnalysisResults.json")
-    let data=allRes[date] || {info:"无此日期对应得数据",code:1}
+    let data=allRes[date] || {info:"无此日期对应得数据!",code:1}
     res.send(data)
 })
 
