@@ -114,6 +114,21 @@
     console.log("\n\n")
 
 
+    // 文件持久换 存入json文件中，以日期为键，统计结果为值
+    let { JsonDB, Config } = require('node-json-db')
+    let db = new JsonDB(new Config("autoRepeat/data/historicalAnalysisResults", true, true, '/'));
+    await db.push("/"+date, {
+        涨停股分布情况:newArr,
+        具有涨停股板块_前10分析:blockResolve,
+        所有板块_前10分析:allRes,
+        热门板块:hotBlock.slice(1),
+        预热板块:noReapetBlockName,
+        预热版块详情:preHotBlockDetail,
+        股票与代码映射关系:blockNameCodeArr,
+        建议关注_热门板块龙头股:tjLTG,
+        建议关注_一进二打板股:daBan
+    })
 
+     console.log("======分析结果已经成功保存到文件中=====\n\n");
 
 }())
