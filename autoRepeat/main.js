@@ -43,7 +43,7 @@
 
     // 预热板块(不含涨停)
     let getPreHot_noZT = require("./service/getPreHot_noZT");
-    let { allRes, preJjArr } = await getPreHot_noZT();
+    let { allRes, preJjArr, allBlockInfo } = await getPreHot_noZT();
 
 
     console.log("\n\n【具有涨停股板块_前10分析】:");
@@ -59,6 +59,18 @@
     let blockNameArr = blockArr.map(ele => ele.blockName);// 得到涨停的所有板块名
     let noReapetBlockName = preJjArr.filter(ele => !blockNameArr.includes(ele));
     console.log("\n\n【预热板块】:", noReapetBlockName);
+    // 打印预热板块中各项数据指标
+    let preHotBlockDetail = noReapetBlockName.map(ele => {
+        return {
+            板块名:allBlockInfo[ele].blocName,
+            涨跌幅:allBlockInfo[ele].zdf,
+            资金流入:allBlockInfo[ele].lrzj,
+            下跌率:allBlockInfo[ele].xdl,
+        }
+    })
+    console.table(preHotBlockDetail)
+
+
 
     // 计算推荐龙头股 和 一进二打板股
     let resolveLtgDbg = require("./service/resolveLtgDbg");
