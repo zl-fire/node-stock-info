@@ -34,14 +34,14 @@
 
     // 控制台显示表格
     console.log("\n=============", new Date().toLocaleString(), "=============")
-    console.log("\n【涨停股分布情况】" + date + "--共有涨停股数量为:", tot, "只，分布板块如下")
+    console.log("\n【涨停股分布情况】" + date + "--共有涨停股数量为:", tot, "只,分布板块如下")
     console.table(newArr)
 
-    // 解析板块数据，得到热门板块
+    // 解析板块数据,得到热门板块
     let resolverBlockData = require("./service/resolverBlockData");
     let { blockResolve, hotBlock } = await resolverBlockData(blockArr);
 
-    // 预热板块（不含涨停)
+    // 预热板块(不含涨停)
     let getPreHot_noZT = require("./service/getPreHot_noZT");
     let { allRes, preJjArr } = await getPreHot_noZT();
 
@@ -82,18 +82,23 @@
     })
 
     console.log("\n\n【建议操作】")
-    console.log(`\n  1.不买计划外的票，哪怕它再好，管住自己的手!`);
-    console.log(`\n  2.对于昨日已经买入的龙头票或者一进二打板票，我都是有高预期的,所以:`);
-    console.log(`\n  \t\ta. 开盘时，如果低于5个点，就直接市价卖出。 `);
-    console.log(`\n  \t\tb. 开盘时，如果高于5个点的，就挂低两个点的条件单市价卖出。 `);
-    console.log(`\n  \t\tc. 尾盘2:50时,条件单未触发的票，如果没涨停就直接卖出。 `);
-    console.log(`\n  3.对于今天计划买入的龙头票，我也是有高预期的,所以:`);
-    console.log(`\n  \t\ta. 开盘时，如果高于5个点，就直接挂高0.1个点的条件单市价买入`);
-    console.log(`\n  \t\tb. 开盘时，如果低于5个点，但是红了的，就挂达到9个点的条件单市价买入`);
-    console.log(`\n  \t\tc. 开盘时，如果在水下，直接忽略 `);
-    console.log(`\n  4.对于今天计划买入的一进二打板票，操作建议:`);
-    console.log(`\n  \t\ta. 早盘竞价结束，时间来的急的情况下，委托9个点的条件单市价买入（最多委托两个就行）`);
-    console.log(`\n  \t\tb. 开盘后，盘中也观察是否有涨势较好的一进二票，可挂条件单市价买入`);
+    console.log(`\n  1.不买计划外的票,哪怕它再好,管住自己的手!`);
+    console.log(`\n  2.对于昨日已经买入的龙头票或者一进二打板票,我都是有高预期的,所以:`);
+    console.log(`\n  \ta. 开盘时,如果低于5个点,就直接市价卖出。 `);
+    console.log(`\n  \tb. 开盘时,如果高于5个点的,就挂低两个点的条件单市价卖出。 `);
+    console.log(`\n  \tc. 尾盘2:50时,条件单未触发的票,如果没涨停就直接卖出。 `);
+    console.log(`\n  3.对于今天计划买入的龙头票,我也是有高预期的,所以:`);
+    console.log(`\n  \ta. 开盘时,如果高于5个点,就直接挂高0.1个点的条件单市价买入`);
+    console.log(`\n  \tb. 开盘时,如果低于5个点,但是红了的,就挂达到9个点的条件单市价买入`);
+    console.log(`\n  \tc. 开盘时,如果在水下,直接忽略 `);
+    console.log(`\n  4.对于今天计划买入的一进二打板票,操作建议:`);
+    console.log(`\n  \ta. 早盘竞价结束,时间来的急的情况下,委托9个点的条件单市价买入(最多委托两个就行)`);
+    console.log(`\n  \tb. 开盘后,盘中也观察是否有涨势较好的一进二票,可挂条件单市价买入`);
+    console.log(`\n  5.对于计划多个交易日持有的反弹票/首版票,操作建议:`);
+    console.log(`\n  \ta. 开盘后,和预期相差不大的情况下,设置开盘价低两个点条件单市价卖出`);
+    console.log(`\n  \tb. 下午2:00,从自选分组、过去票、热点板块票中寻找合适的票)`);
+    console.log(`\n  \tc. 下午2:40,开始卖出不符合预期或达到已认为高度的票`);
+    console.log(`\n  \td. 下午2:45,开始买入认为合适的票`);
     console.log("\n\n")
 
 
