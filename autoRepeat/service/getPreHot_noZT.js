@@ -42,8 +42,8 @@ async function getPreHot_noZT() {
         ) preJjArr.push(ele);
     })
 
-    // 后面把异动板块(涨跌幅_降序_含有未涨停)前5，做补集并入
-    preJjArr.unshift(...zdf10.slice(0, 5));
+    // 后面把异动板块(涨跌幅_降序_含有未涨停)前10，做补集并入
+    preJjArr.unshift(...zdf10.slice(0, 10));
     preJjArr = [...new Set(preJjArr)]; //去重
     preJjArr=preJjArr.map(ele=>ele.slice(0,4));//截取板块名的前4个字
 
