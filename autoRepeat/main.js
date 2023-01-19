@@ -34,7 +34,7 @@
 
     // 控制台显示表格
     console.log("\n=============", new Date().toLocaleString(), "=============")
-    console.log("\n【涨停股池分析】共有涨停股数量为:", tot, "分布如下")
+    console.log("\n【涨停股分布情况】" + date + "--共有涨停股数量为:", tot, "只，分布板块如下")
     console.table(newArr)
 
     // 解析板块数据，得到热门板块
@@ -46,10 +46,10 @@
     let { allRes, preJjArr } = await getPreHot_noZT();
 
 
-    console.log("\n\n【前十板块分析_需含涨停】:");
+    console.log("\n\n【具有涨停股板块_前10分析】:");
     console.table(blockResolve)
 
-    console.log("\n【前十板块分析_不管是否涨停】:");
+    console.log("\n【所有板块_前10分析】:");
     console.table(allRes);
 
     // 热门板块
@@ -65,9 +65,9 @@
     // let { tjLTG, daBan } = await resolveLtgDbg(blockArr, hotBlock, preHot);
     let { tjLTG, daBan } = await resolveLtgDbg(blockArr, hotBlock);
 
-    console.log("\n\n【操作建议】")
+    console.log("\n\n【操作关注】")
 
-    console.log("\n  1. 关注热门板块龙头股如下，操作方式为:放入龙头股分组，第二天竞价完成后，如果高开(涨幅大于+5%)直接委托买入.其他:8.5%时打板买入\n");
+    console.log(`\n  1. 关注热门板块龙头股如下:\n`);
     tjLTG = tjLTG.filter(ele => blockNameCodeArr[ele] ? true : false);
     tjLTG.forEach((ele, i) => {
         let orderNum = (i + 1) < 10 ? "0" + (i + 1) : i + 1; //得到序号
@@ -75,7 +75,7 @@
     })
 
 
-    console.log("\n  2. 关注打板票如下，操作方式为:放入热门板块打板分组,第二天竞价开盘后，8.5%时打板买入(这些打板票包含:热门板块的一板，预热板块的一板或非一板）:\n");
+    console.log("\n  2. 关注打板票如下:\n");
     daBan.forEach((ele, i) => {
         let orderNum = (i + 1) < 10 ? "0" + (i + 1) : i + 1; //得到序号
         console.log("\t", "[" + orderNum + "]", blockNameCodeArr[ele], ele)
