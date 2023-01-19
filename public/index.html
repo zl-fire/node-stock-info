@@ -1,109 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <style>
-        .head {
-            margin: 10px;
-        }
-
-        .head section {
-            display: inline-block;
-            border: 1px solid red;
-        }
-
-        /* 头部选中状态 */
-        .head .active-head {
-            border: 5px solid #e65555;
-        }
-
-        /* 添加taby样式 */
-        .add {
-            background-color: black;
-            color: white;
-            font-size: 20px;
-            padding-left: 10px;
-            padding-right: 10px;
-            cursor: pointer;
-            margin-left: 10px;
-            margin-right: 10px;
-            border: 1px solid white;
-        }
-
-        .add:active {
-            color: red;
-            border: 1px solid red;
-        }
-
-        /* 内容样式 */
-        .main {
-            border: 1px solid blue;
-        }
-
-        /* 默认显示第一个table */
-        .main section {
-            border: 1px solid blue;
-            display: none;
-        }
-
-        .main .active-main {
-            display: block;
-        }
-    </style>
 </head>
-
 <body>
-    <div class="head"><span class="add">+</span></div>
-    <main class="main"></main>
-    <script>
-        // 往页面中添加一个头+体，头：时间选择器+按钮，体：分析结果
-        function create(date) {
-            // 添加头
-            $(".head").append(`
-            <section>
-              <input type="date"/><button class="yes">确认</button>
-            </section>
-            `);
-            // 添加体
-            $(".main").append(`
-            <section>
-              内容${date}
-            </section>
-            `);
-        }
-        create(11);
-        create(22);
-        // 显示第一个标题和内容
-        $(".head section").eq(0).addClass("active-head");
-        $(".main section").eq(0).addClass("active-main");
-
-        // 添加tab
-        $(".add").click(function () {
-            create();
-        })
-
-        // 事件委托
-        $("body").click(function () {
-            let current = event.target;
-            // 点击了确认按钮
-            if ($(current).hasClass("yes")) {
-                // 对标题进行显示和隐藏
-                $(".head section").removeClass("active-head");
-                $(current).parent().addClass("active-head");
-                // 对内容进行显示和隐藏
-                let index = $(current).parent().index();
-                $(".main section").removeClass("active-main");
-                $(".main section").eq(index - 1).addClass("active-main");
-            }
-        })
-
-        fetch("/getData").then(d => d.text()).then(d => console.log(d))
-    </script>
+    hahha
 </body>
-
 </html>

@@ -1,0 +1,46 @@
+.head {
+    margin: 10px;
+}
+
+.head section {
+    display: inline-block;
+    border: 1px solid red;
+}
+
+/* 头部选中状态 */
+.head .active-head {
+    border: 5px solid #e65555;
+}
+
+/* 添加taby样式 */
+.add {
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid white;
+}
+
+.add:active {
+    color: red;
+    border: 1px solid red;
+}
+
+/* 内容样式 */
+.main {
+    border: 1px solid blue;
+}
+
+/* 默认显示第一个table */
+.main section {
+    border: 1px solid blue;
+    display: none;
+}
+
+.main .active-main {
+    display: block;
+}
